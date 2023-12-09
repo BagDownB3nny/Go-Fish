@@ -1,17 +1,6 @@
 import React from "react";
+import { Text } from "react-native";
 import Timer from "../components/Timer";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
-// type RootStackParamList = {
-//     Home: undefined;
-//     Tank: undefined;
-// };
-
-// type HomePageNavigationProp = NativeStackNavigationProp<
-//     RootStackParamList,
-//     "Home"
-// >;
 
 const HomePage: React.FC = () => {
     return (
@@ -20,12 +9,6 @@ const HomePage: React.FC = () => {
             <Timer />
         </>
     );
-    // return (
-    //     <Button
-    //         title="Go to Jane's profile"
-    //         onPress={() => navigation.navigate("Tank")}
-    //     />
-    // );
 };
 
 export default HomePage;

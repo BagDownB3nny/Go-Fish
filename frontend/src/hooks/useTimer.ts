@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { EventRegister } from "react-native-event-listeners";
+import { catchFish } from '../features/fishing/catch-fish';
 
 const useTimer = (defaultTime: number) => {
 
@@ -13,6 +14,10 @@ const useTimer = (defaultTime: number) => {
         if (seconds === 0) {
             setIsActive(false);
             setSeconds(defaultTime);
+            catchFish("65735d38ff4fa64cbdf98324")
+                .then((caughtFish) => {
+                    console.log(caughtFish);
+                });
         }
 
         interval = setInterval(() => {

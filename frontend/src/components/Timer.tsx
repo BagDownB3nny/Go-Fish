@@ -4,7 +4,7 @@ import { setupAppStateListener } from "../utilities/appStateListener";
 import { EventRegister } from "react-native-event-listeners";
 import useTimer from "../hooks/useTimer";
 
-const defaultTime = 30;
+const defaultTime = 2;
 
 const Timer = () => {
     const { seconds, setIsActive } = useTimer(defaultTime);

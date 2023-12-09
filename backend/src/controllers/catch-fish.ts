@@ -12,6 +12,7 @@ export const catchFish = async (req: CatchFishRequest, res: Response) => {
     const user = await User.findById(userId);
     console.log(userId);
     if (!user) {
+        console.log("User not found");
         return res.status(404).json({ message: "User not found" });
     }
     let caughtFish;
@@ -31,6 +32,8 @@ export const catchFish = async (req: CatchFishRequest, res: Response) => {
         await removeBaitFromUser(user, bait);
     }
     await caughtFish.save();
+    console.log(`User ${userId} caught a fish!`);
+    console.log(caughtFish);
     return res.json({ caughtFish });
 }
 // Runs an algorithm to calculate the species and length of the fish caught, based on the bait used.

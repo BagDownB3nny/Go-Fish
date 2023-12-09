@@ -2,12 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import router from "./routes";
+import allowCrossDomain from "./middleware/allowCrossDomain";
 
 dotenv.config();
 
 // express app
 const app = express();
 
+app.use(allowCrossDomain);
 app.use(express.json());
 
 //middleware

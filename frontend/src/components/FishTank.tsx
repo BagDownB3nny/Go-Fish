@@ -9,11 +9,8 @@ type FishTankProps = {
 };
 
 const FishTank: React.FC<FishTankProps> = ({ fishList }) => {
-    console.log(fishList);
     const renderFishItem = ({ item }: { item: Fish }) => {
         const fishSource = fishImages[item.name.replace(" ", "")];
-        // console.log(fishSource);
-        // console.log(item);
         return (
             <View>
                 <Image
@@ -28,11 +25,13 @@ const FishTank: React.FC<FishTankProps> = ({ fishList }) => {
         );
     };
 
+    console.log(fishList);
+
     return (
         <>
             <Text>List: </Text>
             <FlatList
-                data={fishList["fish"]}
+                data={fishList}
                 renderItem={renderFishItem}
                 keyExtractor={(item) => item.name}
             />
