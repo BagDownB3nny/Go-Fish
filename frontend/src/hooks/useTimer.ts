@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { EventRegister } from "react-native-event-listeners";
 import { catchFish } from '../features/fishing/catch-fish';
+import { Fish } from '../types/fish.types';
 
 const useTimer = (defaultTime: number) => {
 
     const [isActive, setIsActive] = useState(false);
     const [seconds, setSeconds] = useState(defaultTime);
+    const [caughtFish, setCaughtFish] = useState<Fish>();
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
@@ -17,6 +19,7 @@ const useTimer = (defaultTime: number) => {
             catchFish("65735d38ff4fa64cbdf98324")
                 .then((caughtFish) => {
                     console.log(caughtFish);
+                    setCaughtFish(caughtFish);
                 });
         }
 
@@ -33,11 +36,12 @@ const useTimer = (defaultTime: number) => {
         setSeconds(defaultTime);
         console.log("Timer stopped");
     });
+
     EventRegister.addEventListener("screenLocked", () => {
         console.log("Timer continues");
     });
 
-  return { seconds, setIsActive };
+  return { seconds, setIsActive, caughtFish, setCaughtFish };
 };
 
 export default useTimer;
