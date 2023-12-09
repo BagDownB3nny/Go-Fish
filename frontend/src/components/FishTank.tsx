@@ -25,17 +25,12 @@ const FishTank: React.FC<FishTankProps> = ({ fishList }) => {
         );
     };
 
-    console.log(fishList);
-
     return (
-        <>
-            <Text>List: </Text>
-            <FlatList
-                data={fishList}
-                renderItem={renderFishItem}
-                keyExtractor={(item) => item.name}
-            />
-        </>
+        <FlatList
+            data={fishList}
+            renderItem={renderFishItem}
+            keyExtractor={(item) => item.name + item.caughtDate}
+        />
     );
 };
 
