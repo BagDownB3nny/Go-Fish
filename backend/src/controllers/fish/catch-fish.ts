@@ -1,5 +1,5 @@
-import Fish, { IFish } from "../models/fish-model";
-import User, { IUser } from "../models/user-model";
+import Fish, { IFish } from "../../models/fish-model";
+import User, { IUser } from "../../models/user-model";
 import { Request, Response } from "express";
 
 export interface CatchFishRequest extends Request {

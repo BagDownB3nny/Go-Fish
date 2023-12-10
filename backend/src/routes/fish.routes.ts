@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { GetFishRequest, getFish } from '../controllers/get-fish';
-import { CatchFishRequest, catchFish } from '../controllers/catch-fish';
+import { GetFishRequest, getFish } from '../controllers/fish/get-fish';
+import { CatchFishRequest, catchFish } from '../controllers/fish/catch-fish';
 
 const router = express.Router();
 
