@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
+import { setAuthHeader } from "../lib/axios";
 
 type User = {
     token?: string;
@@ -22,11 +23,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         const fetchToken = async () => {
-            const token =
-                (await SecureStore.getItemAsync("token")) || undefined;
-            const userId =
-                (await SecureStore.getItemAsync("userId")) || undefined;
-            setCurrentUser({ token, userId });
+            const token = (await SecureStore.getItemAsync("token")) || "";
+            const userId = (await SecureStore.getItemAsync("userId")) || "";
+
+            if (token === "" || userId === "") {
+                return;
+            } else {
+                setCurrentUser({ token, userId });
+                setAuthHeader(token);
+            }
         };
         fetchToken();
     }, []);
