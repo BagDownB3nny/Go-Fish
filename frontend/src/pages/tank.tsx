@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Text } from "react-native";
 import { api } from "../lib/axios";
 import FishTank from "../components/FishTank";
 import { getFishes } from "../features/fishing/get-fishes";
 import { Fish } from "../types/fish.types";
+import { AuthContext } from "../context/authContext";
 
 const TankPage: React.FC = () => {
+    const { currentUser } = useContext(AuthContext);
     const [fishes, setFishes] = useState<Fish[]>([]);
 
     const fetchAndSetFishes = async () => {
-        getFishes("65735d38ff4fa64cbdf98324").then((fishList) =>
-            setFishes(fishList)
-        );
+        getFishes(currentUser.userId!).then((fishList) => setFishes(fishList));
     };
 
     useEffect(() => {

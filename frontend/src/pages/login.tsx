@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Form, useForm, Controller } from "react-hook-form";
 import { View, Text, TextInput, Button } from "react-native";
-import { api } from "../lib/axios";
+import { api, setAuthHeader } from "../lib/axios";
 import { AuthContext } from "../context/authContext";
+import * as SecureStore from "expo-secure-store";
 
 type LoginFormData = {
     email: string;
@@ -27,6 +28,9 @@ const LoginPage = () => {
                 token: res.data.token,
                 userId: res.data.userId,
             });
+            setAuthHeader(res.data.token);
+            SecureStore.setItemAsync("token", res.data.token);
+            SecureStore.setItemAsync("userId", res.data.userId);
         });
     };
 

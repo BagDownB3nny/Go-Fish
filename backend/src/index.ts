@@ -18,6 +18,11 @@ app.use((req : any, res : any, next : any) => {
   next();
 });
 
+app.use((req : any, res : any, next : any) => {
+  console.log(req.body);
+  next();
+});
+
 app.use(router);
 
 mongoose.connect(process.env.MONGO_URI!).then(() => {

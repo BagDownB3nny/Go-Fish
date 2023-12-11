@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { EventRegister } from "react-native-event-listeners";
 import { catchFish } from '../features/fishing/catch-fish';
 import { Fish } from '../types/fish.types';
+import { AuthContext } from '../context/authContext';
 
 const useTimer = (defaultTime: number) => {
+
+    const { currentUser } = useContext(AuthContext);
 
     const [isActive, setIsActive] = useState(false);
     const [seconds, setSeconds] = useState(defaultTime);
@@ -16,7 +19,7 @@ const useTimer = (defaultTime: number) => {
         if (seconds === 0) {
             setIsActive(false);
             setSeconds(defaultTime);
-            catchFish("65735d38ff4fa64cbdf98324")
+            catchFish(currentUser.userId!)
                 .then((caughtFish) => {
                     console.log(caughtFish);
                     setCaughtFish(caughtFish);

@@ -13,11 +13,7 @@ const FishTank: React.FC<FishTankProps> = ({ fishList }) => {
         const fishSource = fishImages[item.name.replace(" ", "")];
         return (
             <View>
-                <Image
-                    style={{ width: 40, height: 40 }}
-                    source={fishSource}
-                    // source="https://picsum.photos/seed/696/3000/2000"
-                />
+                <Image style={{ width: 40, height: 40 }} source={fishSource} />
                 <Text>Name: {item.name}</Text>
                 <Text>Length: {item.lengthInCm} cm</Text>
                 <Text>Caught Date: {item.caughtDate}</Text>

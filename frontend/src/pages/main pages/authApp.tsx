@@ -6,6 +6,8 @@ import { MainApp } from "./mainApp";
 
 export default function AuthApp() {
     const { currentUser } = useContext(AuthContext);
+    console.log("Rerendering");
+    console.log(currentUser.token);
 
-    return <>{currentUser && currentUser.token ? <MainApp /> : <Entry />}</>;
+    return <>{currentUser.token !== "" ? <MainApp /> : <Entry />}</>;
 }
