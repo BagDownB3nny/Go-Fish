@@ -1,11 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { setAuthHeader } from "../lib/axios";
-
-type User = {
-    token?: string;
-    userId?: string;
-};
+import { User } from "../types/user.types";
 
 type AuthContextType = {
     currentUser: User;
