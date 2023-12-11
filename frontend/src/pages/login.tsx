@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { Form, useForm, Controller } from "react-hook-form";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, Button } from "react-native";
 import { api, setAuthHeader } from "../lib/axios";
 import { AuthContext } from "../context/authContext";
 import * as SecureStore from "expo-secure-store";
+import { CustomTextInput } from "../components/CustomTextInput";
 
 type LoginFormData = {
     email: string;
@@ -41,7 +42,7 @@ const LoginPage = () => {
                 control={control}
                 name="email"
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <TextInput
+                    <CustomTextInput
                         placeholder="Enter your email here"
                         value={value}
                         onBlur={onBlur}
@@ -60,7 +61,7 @@ const LoginPage = () => {
                 control={control}
                 name="password"
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <TextInput
+                    <CustomTextInput
                         placeholder="Enter your password here"
                         value={value}
                         onBlur={onBlur}

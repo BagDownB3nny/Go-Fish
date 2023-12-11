@@ -2,6 +2,7 @@ import React from "react";
 import { Form, useForm, Controller } from "react-hook-form";
 import { View, Text, TextInput, Button } from "react-native";
 import { api } from "../lib/axios";
+import { CustomTextInput } from "../components/CustomTextInput";
 
 type RegisterFormData = {
     username: string;
@@ -31,7 +32,7 @@ const RegisterPage = () => {
                 control={control}
                 name="username"
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <TextInput
+                    <CustomTextInput
                         placeholder="Enter your name here"
                         value={value}
                         onBlur={onBlur}
@@ -50,7 +51,7 @@ const RegisterPage = () => {
                 control={control}
                 name="email"
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <TextInput
+                    <CustomTextInput
                         placeholder="Enter your email here"
                         value={value}
                         onBlur={onBlur}
@@ -69,7 +70,7 @@ const RegisterPage = () => {
                 control={control}
                 name="password"
                 render={({ field: { onChange, value, onBlur } }) => (
-                    <TextInput
+                    <CustomTextInput
                         placeholder="Enter your password here"
                         value={value}
                         onBlur={onBlur}
