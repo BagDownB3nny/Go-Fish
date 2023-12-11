@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, useForm, Controller } from "react-hook-form";
 import { View, Text, TextInput, Button } from "react-native";
 import { api } from "../lib/axios";
+import { AuthContext } from "../context/authContext";
 
 type LoginFormData = {
     email: string;
@@ -9,6 +10,8 @@ type LoginFormData = {
 };
 
 const LoginPage = () => {
+    const { currentUser, setCurrentUser } = useContext(AuthContext);
+
     const {
         control,
         handleSubmit,
@@ -20,6 +23,10 @@ const LoginPage = () => {
         console.log(data);
         api.post("/user/login", data).then((res) => {
             console.log(res.data);
+            setCurrentUser({
+                token: res.data.token,
+                userId: res.data.userId,
+            });
         });
     };
 

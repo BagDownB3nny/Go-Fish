@@ -1,12 +1,19 @@
 import React, { createContext, useState, useEffect } from "react";
-import { set } from "react-hook-form";
+import * as SecureStore from "expo-secure-store";
 
 type User = {
     token?: string;
     userId?: string;
 };
 
-export const AuthContext = createContext<User>({});
+type AuthContextType = {
+    currentUser: User;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
+};
+
+export const AuthContext = createContext<AuthContextType>(
+    {} as AuthContextType
+);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -14,13 +21,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const [currentUser, setCurrentUser] = useState<User>({});
 
     useEffect(() => {
-        const token = localStorage.getItem("token") || undefined;
-        const userId = localStorage.getItem("userId") || undefined;
-        setCurrentUser({ token, userId });
+        const fetchToken = async () => {
+            const token =
+                (await SecureStore.getItemAsync("token")) || undefined;
+            const userId =
+                (await SecureStore.getItemAsync("userId")) || undefined;
+            setCurrentUser({ token, userId });
+        };
+        fetchToken();
     }, []);
 
+    useEffect(() => {
+        console.log("Current user changed!");
+        console.log(currentUser);
+    }, [currentUser]);
+
     return (
-        <AuthContext.Provider value={currentUser}>
+        <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
             {children}
         </AuthContext.Provider>
     );
