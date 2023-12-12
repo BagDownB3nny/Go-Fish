@@ -1,4 +1,3 @@
-import Fish, { IFish } from "../../models/fish-model";
 import User, { IUser } from "../../models/user-model";
 import { Request, Response } from "express";
 
@@ -9,6 +8,9 @@ export interface GetFishRequest extends Request {
 export const getFish = async (req : GetFishRequest, res : Response) => {
     const { userId } = req.query;
     const user = await User.findById(userId);
-    const fish = await Fish.find({ caughtBy: user });
-    return res.json({ fish });
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    const fishes = user.fishes;
+    return res.json({ fishes });
 }
