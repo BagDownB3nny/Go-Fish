@@ -1,11 +1,12 @@
 import mongoose, { Types } from "mongoose";
+import {IFishSpecies} from "./fish-model";
 
 export interface IUser extends mongoose.Document {
     username: string;
     email: string;
     password: string;
     friends: Types.ObjectId[];
-    fishes: Map<string, number>;
+    fishes: Map<IFishSpecies, number>;
 }
 
 export const UserSchema = new mongoose.Schema<IUser> ({

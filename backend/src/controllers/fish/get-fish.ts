@@ -1,5 +1,6 @@
 import User, { IUser } from "../../models/user-model";
 import { Request, Response } from "express";
+import FishSpecies from "../../models/fish-model";
 
 export interface GetFishRequest extends Request {
     user: IUser;
