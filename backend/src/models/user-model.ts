@@ -5,7 +5,7 @@ export interface IUser extends mongoose.Document {
     email: string;
     password: string;
     friends: Types.ObjectId[];
-    fishes: Map<Types.ObjectId, number>;
+    fishes: Map<string, number>;
 }
 
 export const UserSchema = new mongoose.Schema<IUser> ({
@@ -13,7 +13,7 @@ export const UserSchema = new mongoose.Schema<IUser> ({
     email: { type: String, required: true, unique: true },
     password: {type: String, required: true},
     friends: { type: [Types.ObjectId], required: true, ref: "User" },
-    fishes: { type: Map, required: true, of: Number, ref: "FishSpecies" },
+    fishes: { type: Map, required: true, of: Number },
 })
 
 export default mongoose.model<IUser>("User", UserSchema);

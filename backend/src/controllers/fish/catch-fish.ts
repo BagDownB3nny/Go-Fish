@@ -46,11 +46,10 @@ const addCaughtFishesToUser = async (user: IUser, caughtFishes: string[]) => {
             console.log("Fish species not found");
             return;
         }
-        const fishIdString = fishSpecies._id.toString();
-        if (user.fishes.has(fishIdString)) {
-            user.fishes.set(fishIdString, user.fishes.get(fishIdString)! + 1);
+        if (user.fishes.has(fishName)) {
+            user.fishes.set(fishName, user.fishes.get(fishName)! + 1);
         } else {
-            user.fishes.set(fishIdString, 1);
+            user.fishes.set(fishName, 1);
         }
     }
     user.save().then(() => {
