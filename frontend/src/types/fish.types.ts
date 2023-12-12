@@ -1,6 +1,4 @@
-export type Fish = {
+export type FishSpecies = {
     name: string;
-    lengthInCm: number;
-    caughtBy: string;
-    caughtDate: string;
+    description: string;
 };
