@@ -1,5 +1,5 @@
 import FishSpecies, { IFishSpecies } from "../../models/fish-model";
-import User, { IUser } from "../../models/user-model";
+import User, { IUser, ICaughtFishes } from "../../models/user-model";
 import { Request, Response } from "express";
 import { BaitAndFishMap } from "./fishCatchingStats";
 
@@ -46,13 +46,22 @@ const addCaughtFishesToUser = async (user: IUser, caughtFishes: string[]) => {
             console.log("Fish species not found");
             return;
         }
-        const fishObject = fishSpecies.toObject();
-        if (user.fishes.has(fishObject)) {
-            user.fishes.set(fishObject, user.fishes.get(fishObject)! + 1);
+        if (user.fishes.has(fishName)) {
+            const newCaughtFishEntry : ICaughtFishes = {
+                description: fishSpecies.description,
+                count: user.fishes.get(fishName)!.count + 1,
+            }
+            user.fishes.set(fishName, newCaughtFishEntry);
         } else {
-            user.fishes.set(fishObject, 1);
+            const newCaughtFishEntry : ICaughtFishes = {
+                description: fishSpecies.description,
+                count: 1,
+            };
+            console.log("Setting new caught fish entry");
+            user.fishes.set(fishName, newCaughtFishEntry);
         }
     }
+    console.log("Saving user");
     user.save().then(() => {
         console.log(user.fishes);
     });

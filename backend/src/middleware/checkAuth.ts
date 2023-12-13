@@ -22,10 +22,10 @@ export const checkAuth = (req : AuthRequest, res : Response, next : NextFunction
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader) {
+            console.log("No auth header");
             return res.status(401).json({ error: 'Authentication failed' });
         }
         const token = authHeader.split(' ')[1];
-        console.log(token);
         const decodedToken: DecodedToken = jwt.verify(token, process.env.JWT_SECRET!) as DecodedToken;
         req.userData = { userId: decodedToken.userId, email: decodedToken.email };
         next();

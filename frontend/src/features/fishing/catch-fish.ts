@@ -1,7 +1,7 @@
 import { api } from "../../lib/axios"
-import { Fish } from "../../types/fish.types";
+import { FishSpecies } from "../../types/fish.types";
 
-export const catchFish = async (userId: string, baitId?: string) : Promise<Fish>=> {
+export const catchFish = async (userId: string, baitId?: string) : Promise<FishSpecies>=> {
     const data = {
         userId,
         ...(baitId && { baitId })
@@ -11,6 +11,6 @@ export const catchFish = async (userId: string, baitId?: string) : Promise<Fish>
         return response.data.caughtFish;
     } catch (err) {
         console.log(err);
-        return {} as Fish;
+        return {} as FishSpecies;
     }
 }

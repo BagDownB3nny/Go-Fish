@@ -22,6 +22,7 @@ export const FishesProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         const fetchFishes = async () => {
+            console.log("Fetching fishes useEffect");
             api.get(`fish/my-fishes?userId=${currentUser.userId}`).then(
                 (res: { data: any }) => {
                     console.log(res.data);
@@ -29,12 +30,7 @@ export const FishesProvider: React.FC<{ children: React.ReactNode }> = ({
             );
         };
         fetchFishes();
-    }, []);
-
-    useEffect(() => {
-        console.log("Current user changed!");
-        console.log(fishes);
-    }, [fishes]);
+    }, [currentUser]);
 
     return (
         <FishesContext.Provider value={{ fishes, setFishes }}>

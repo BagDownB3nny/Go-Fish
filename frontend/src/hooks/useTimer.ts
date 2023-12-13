@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { EventRegister } from "react-native-event-listeners";
 import { catchFish } from '../features/fishing/catch-fish';
-import { Fish } from '../types/fish.types';
+import { FishSpecies } from '../types/fish.types';
 import { AuthContext } from '../context/authContext';
 
 const useTimer = (defaultTime: number) => {
@@ -10,7 +10,7 @@ const useTimer = (defaultTime: number) => {
 
     const [isActive, setIsActive] = useState(false);
     const [seconds, setSeconds] = useState(defaultTime);
-    const [caughtFish, setCaughtFish] = useState<Fish>();
+    const [caughtFish, setCaughtFish] = useState<FishSpecies>();
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
