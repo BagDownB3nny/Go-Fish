@@ -3,10 +3,13 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { FishSpecies, UserCaughtFishes } from "../types/fish.types";
 import { fishesToDropdownItems } from "../utilities/fishesToDropdownItems";
 
-const BaitSelector: React.FC<{ options: UserCaughtFishes }> = ({ options }) => {
+const BaitSelector: React.FC<{
+    options: UserCaughtFishes;
+    bait: string[];
+    setBaits: React.Dispatch<React.SetStateAction<string[]>>;
+}> = ({ options, bait, setBaits: setBait }) => {
     console.log(options);
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
     const [items, setItems] = useState(fishesToDropdownItems(options));
 
     useEffect(() => {
@@ -20,10 +23,10 @@ const BaitSelector: React.FC<{ options: UserCaughtFishes }> = ({ options }) => {
     return (
         <DropDownPicker
             open={open}
-            value={value}
+            value={bait}
             items={items}
             setOpen={setOpen}
-            setValue={setValue}
+            setValue={setBait}
             setItems={setItems}
         />
     );

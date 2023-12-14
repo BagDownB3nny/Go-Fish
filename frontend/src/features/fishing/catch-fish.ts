@@ -1,10 +1,10 @@
 import { api } from "../../lib/axios"
 import { FishSpecies } from "../../types/fish.types";
 
-export const catchFish = async (userId: string, baitId?: string) : Promise<FishSpecies>=> {
+export const catchFish = async (userId: string, baits : string[]) : Promise<FishSpecies>=> {
     const data = {
         userId,
-        ...(baitId && { baitId })
+        baits
     };
     try {
         const response = await api.post("/fish/catch-fish", data)

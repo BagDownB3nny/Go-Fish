@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Text } from "react-native";
 import Timer from "../components/Timer";
 import BaitSelector from "../components/BaitSelector";
@@ -7,17 +7,13 @@ import { FishesContext } from "../context/fishesContext";
 
 const HomePage: React.FC = () => {
     const { fishes } = useContext(FishesContext);
-
-    useEffect(() => {
-        console.log("Fishes useEffect");
-        console.log(fishes);
-    }, [fishes]);
+    const [bait, setBait] = useState<string[]>([]);
 
     return (
         <>
             <Text>Home Page</Text>
-            <Timer />
-            <BaitSelector options={fishes} />
+            <Timer bait={bait} />
+            <BaitSelector options={fishes} bait={bait} setBaits={setBait} />
         </>
     );
 };

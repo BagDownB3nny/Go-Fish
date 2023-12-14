@@ -7,11 +7,15 @@ import FishCaughtModal from "./FishCaughtModal";
 
 const defaultTime = 2;
 
-const Timer = () => {
-    const { seconds, setIsActive, caughtFish, setCaughtFish } =
+const Timer: React.FC<{ bait: string }> = ({ bait }) => {
+    const { seconds, setIsActive, caughtFish, setCaughtFish, setBait } =
         useTimer(defaultTime);
 
     setupAppStateListener();
+
+    useEffect(() => {
+        setBait(bait);
+    }, [bait]);
 
     const closeModal = () => setCaughtFish(undefined);
 
