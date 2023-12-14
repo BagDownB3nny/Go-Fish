@@ -11,7 +11,7 @@ const useTimer = (defaultTime: number) => {
     const [isActive, setIsActive] = useState(false);
     const [seconds, setSeconds] = useState(defaultTime);
     const [caughtFish, setCaughtFish] = useState<FishSpecies>();
-    const [bait, setBait] = useState<string[]>([]);
+    const [bait, setBait] = useState<string>("None");
 
     useEffect(() => {
         let interval: NodeJS.Timeout;

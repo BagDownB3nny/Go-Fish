@@ -5,9 +5,9 @@ import { fishesToDropdownItems } from "../utilities/fishesToDropdownItems";
 
 const BaitSelector: React.FC<{
     options: UserCaughtFishes;
-    bait: string[];
-    setBaits: React.Dispatch<React.SetStateAction<string[]>>;
-}> = ({ options, bait, setBaits: setBait }) => {
+    bait: string;
+    setBait: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ options, bait, setBait }) => {
     console.log(options);
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState(fishesToDropdownItems(options));
