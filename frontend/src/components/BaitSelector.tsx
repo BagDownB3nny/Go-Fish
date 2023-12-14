@@ -8,7 +8,6 @@ const BaitSelector: React.FC<{
     bait: string;
     setBait: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ options, bait, setBait }) => {
-    console.log(options);
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState(fishesToDropdownItems(options));
 
@@ -16,9 +15,9 @@ const BaitSelector: React.FC<{
         setItems(fishesToDropdownItems(options));
     }, [options]);
 
-    useEffect(() => {
-        console.log(items);
-    }, [items]);
+    // useEffect(() => {
+    //     console.log(items);
+    // }, [items]);
 
     return (
         <DropDownPicker

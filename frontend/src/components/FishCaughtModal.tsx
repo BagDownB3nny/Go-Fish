@@ -1,21 +1,20 @@
 import React from "react";
 import { Modal, Text, View, Button } from "react-native";
-import { Fish } from "../types/fish.types";
 
 interface FishCaughtModalProps {
-    fish?: Fish;
+    caughtFishName?: string;
     visible: boolean;
     onClose: () => void;
     closeModal: () => void;
 }
 
 const FishCaughtModal: React.FC<FishCaughtModalProps> = ({
-    fish,
+    caughtFishName,
     visible,
     onClose,
     closeModal,
 }) => {
-    if (!fish) {
+    if (!caughtFishName) {
         return null;
     }
     return (
@@ -28,8 +27,8 @@ const FishCaughtModal: React.FC<FishCaughtModalProps> = ({
                     marginTop: 22,
                 }}
             >
-                <Text>Name: {fish.name}</Text>
-                <Text>Length: {fish.lengthInCm} inches</Text>
+                <Text>Fish Caught!</Text>
+                <Text>Name: {caughtFishName}</Text>
                 <Button title="Close modal" onPress={closeModal} />
             </View>
         </Modal>

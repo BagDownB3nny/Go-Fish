@@ -10,7 +10,7 @@ const useTimer = (defaultTime: number) => {
 
     const [isActive, setIsActive] = useState(false);
     const [seconds, setSeconds] = useState(defaultTime);
-    const [caughtFish, setCaughtFish] = useState<FishSpecies>();
+    const [caughtFishName, setCaughtFishName] = useState<string>();
     const [bait, setBait] = useState<string>("None");
 
     useEffect(() => {
@@ -22,8 +22,9 @@ const useTimer = (defaultTime: number) => {
             setSeconds(defaultTime);
             catchFish(currentUser.userId!, bait)
                 .then((caughtFish) => {
+                    console.log("Caught fish!");
                     console.log(caughtFish);
-                    setCaughtFish(caughtFish);
+                    setCaughtFishName(caughtFish);
                 });
         }
 
@@ -45,7 +46,7 @@ const useTimer = (defaultTime: number) => {
         console.log("Timer continues");
     });
 
-  return { seconds, setIsActive, caughtFish, setCaughtFish, setBait };
+  return { seconds, setIsActive, caughtFishName, setCaughtFishName, setBait };
 };
 
 export default useTimer;
