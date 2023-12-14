@@ -1,35 +1,31 @@
-import FishSpecies, { IFishSpecies } from "../../models/fish-model";
-import User, { IUser, ICaughtFishes } from "../../models/user-model";
 import { Request, Response } from "express";
+import FishSpecies from "../../models/fish-model";
+import User, { ICaughtFishes, IUser } from "../../models/user-model";
 import { BaitAndFishMap } from "./fishCatchingStats";
 
 export interface CatchFishRequest extends Request {
     userId: string;
-    baits: string[];
+    baitName: string;
 }
 
-export const catchFishes = async (req: CatchFishRequest, res: Response) => {
-    const { userId, baits } = req.body;
+export const catchFish = async (req: CatchFishRequest, res: Response) => {
+    const { userId, baitName } = req.body;
     const user = await User.findById(userId);
     if (!user) {
         console.log("User not found");
         return res.status(404).json({ message: "User not found" });
     }
-    let caughtFishes : string[] = [];
-    for (const baitName of baits) {
-        const bait = await FishSpecies.find({ name: baitName });
-        if (!bait && baitName !== "None") {
-            console.log("Bait not found");
-            return res.status(404).json({ message: "Bait not found" });
-        }
-        const caughtFish = catchFish(user, baitName);
-        caughtFishes.push(caughtFish);
+    const bait = await FishSpecies.find({ name: baitName });
+    if (!bait && bait !== "None") {
+        console.log("Bait not found");
+        return res.status(404).json({ message: "Bait not found" });
     }
-    addCaughtFishesToUser(user, caughtFishes);
-    return res.json({ caughtFishes });
+    const caughtFishName = catchFishWithBait(user, baitName);
+    addCaughtFishesToUser(user, caughtFishName);
+    return res.json({ caughtFishName });
 }
 
-const addCaughtFishesToUser = async (user: IUser, caughtFishes: string[]) => {
+const addCaughtFishesToUser = async (user: IUser, caughtFishName: string) => {
     if (!user) {
         console.log("User not found");
         return;
@@ -40,26 +36,24 @@ const addCaughtFishesToUser = async (user: IUser, caughtFishes: string[]) => {
     }
     console.log("Adding caught fishes to user");
     console.log(user.fishes);
-    for (const fishName of caughtFishes) {
-        const fishSpecies = await FishSpecies.findOne({ name: fishName });
-        if (!fishSpecies) {
-            console.log("Fish species not found");
-            return;
+    const fishSpecies = await FishSpecies.findOne({ name: caughtFishName });
+    if (!fishSpecies) {
+        console.log("Fish species not found");
+        return;
+    }
+    if (user.fishes.has(caughtFishName)) {
+        const newCaughtFishEntry : ICaughtFishes = {
+            description: fishSpecies.description,
+            count: user.fishes.get(caughtFishName)!.count + 1,
         }
-        if (user.fishes.has(fishName)) {
-            const newCaughtFishEntry : ICaughtFishes = {
-                description: fishSpecies.description,
-                count: user.fishes.get(fishName)!.count + 1,
-            }
-            user.fishes.set(fishName, newCaughtFishEntry);
-        } else {
-            const newCaughtFishEntry : ICaughtFishes = {
-                description: fishSpecies.description,
-                count: 1,
-            };
-            console.log("Setting new caught fish entry");
-            user.fishes.set(fishName, newCaughtFishEntry);
-        }
+        user.fishes.set(caughtFishName, newCaughtFishEntry);
+    } else {
+        const newCaughtFishEntry : ICaughtFishes = {
+            description: fishSpecies.description,
+            count: 1,
+        };
+        console.log("Setting new caught fish entry");
+        user.fishes.set(caughtFishName, newCaughtFishEntry);
     }
     console.log("Saving user");
     user.save().then(() => {
@@ -68,7 +62,7 @@ const addCaughtFishesToUser = async (user: IUser, caughtFishes: string[]) => {
 }
 
 // Runs an algorithm to calculate the species and length of the fish caught, based on the bait used.
-const catchFish = (user: IUser, baitName: string) => {
+const catchFishWithBait = (user: IUser, baitName: string) => {
     // TODO - implement algorithm
     console.log("Catching fish");
     console.log(baitName);
